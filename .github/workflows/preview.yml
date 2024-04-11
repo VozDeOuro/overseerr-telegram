@@ -42,3 +42,4 @@ jobs:
           tags: |
             sctx/overseerr:${{ steps.get_version.outputs.VERSION }}
             ghcr.io/sct/overseerr:${{ steps.get_version.outputs.VERSION }}
+            vozdeouro/overseerr-telegram:${{ steps.get_version.outputs.VERSION }}

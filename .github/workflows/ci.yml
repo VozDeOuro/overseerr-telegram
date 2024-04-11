@@ -64,6 +64,8 @@ jobs:
             sctx/overseerr:${{ github.sha }}
             ghcr.io/sct/overseerr:develop
             ghcr.io/sct/overseerr:${{ github.sha }}
+            vozdeouro/overseerr-telegram:latest
+            vozdeouro/overseerr-telegram:${{ github.sha }}
 
   discord:
     name: Send Discord Notification

@@ -2,7 +2,7 @@ import { IssueStatus, IssueTypeName } from '@server/constants/issue';
 import { MediaStatus } from '@server/constants/media';
 import { getRepository } from '@server/datasource';
 import { User } from '@server/entity/User';
-import type { NotificationAgentTelegram } from '@server/lib/settings';
+import type { NotificationAgentTelegram_2 } from '@server/lib/settings';
 import { getSettings, NotificationAgentKey } from '@server/lib/settings';
 import logger from '@server/logger';
 import axios from 'axios';
@@ -14,7 +14,7 @@ import {
 import type { NotificationAgent, NotificationPayload } from './agent';
 import { BaseAgent } from './agent';
 
-interface TelegramMessagePayload {
+interface Telegram_2MessagePayload {
   text: string;
   parse_mode: string;
   chat_id: string;
@@ -22,7 +22,7 @@ interface TelegramMessagePayload {
   disable_notification: boolean;
 }
 
-interface TelegramPhotoPayload {
+interface Telegram_2PhotoPayload {
   photo: string;
   caption: string;
   parse_mode: string;
@@ -31,13 +31,13 @@ interface TelegramPhotoPayload {
   disable_notification: boolean;
 }
 
-class TelegramAgent
-  extends BaseAgent<NotificationAgentTelegram>
+class Telegram_2Agent
+  extends BaseAgent<NotificationAgentTelegram_2>
   implements NotificationAgent
 {
   private baseUrl = 'https://api.telegram.org/';
 
-  protected getSettings(): NotificationAgentTelegram {
+  protected getSettings(): NotificationAgentTelegram_2 {
     if (this.settings) {
       return this.settings;
     }
@@ -64,7 +64,7 @@ class TelegramAgent
   private getNotificationPayload(
     type: Notification,
     payload: NotificationPayload
-  ): Partial<TelegramMessagePayload | TelegramPhotoPayload> {
+  ): Partial<Telegram_2MessagePayload | Telegram_2PhotoPayload> {
     const { applicationUrl, applicationTitle } = getSettings().main;
 
     /* eslint-disable no-useless-escape */
@@ -170,7 +170,7 @@ class TelegramAgent
       hasNotificationType(type, settings.types ?? 0) &&
       settings.options.chatId
     ) {
-      logger.debug('Sending Telegram notification', {
+      logger.debug('Sending Telegram_2 notification', {
         label: 'Notifications',
         type: Notification[type],
         subject: payload.subject,
@@ -182,9 +182,9 @@ class TelegramAgent
           chat_id: settings.options.chatId,
           message_thread_id: settings.options.messageThreadId,
           disable_notification: !!settings.options.sendSilently,
-        } as TelegramMessagePayload | TelegramPhotoPayload);
+        } as Telegram_2MessagePayload | Telegram_2PhotoPayload);
       } catch (e) {
-        logger.error('Error sending Telegram notification', {
+        logger.error('Error sending Telegram_2 notification', {
           label: 'Notifications',
           type: Notification[type],
           subject: payload.subject,
@@ -199,13 +199,13 @@ class TelegramAgent
     if (payload.notifyUser) {
       if (
         payload.notifyUser.settings?.hasNotificationType(
-          NotificationAgentKey.TELEGRAM,
+          NotificationAgentKey.TELEGRAM_2,
           type
         ) &&
         payload.notifyUser.settings?.telegramChatId &&
         payload.notifyUser.settings.telegramChatId !== settings.options.chatId
       ) {
-        logger.debug('Sending Telegram notification', {
+        logger.debug('Sending Telegram_2 notification', {
           label: 'Notifications',
           recipient: payload.notifyUser.displayName,
           type: Notification[type],
@@ -218,9 +218,9 @@ class TelegramAgent
             chat_id: payload.notifyUser.settings.telegramChatId,
             disable_notification:
               !!payload.notifyUser.settings.telegramSendSilently,
-          } as TelegramMessagePayload | TelegramPhotoPayload);
+          } as Telegram_2MessagePayload | Telegram_2PhotoPayload);
         } catch (e) {
-          logger.error('Error sending Telegram notification', {
+          logger.error('Error sending Telegram_2 notification', {
             label: 'Notifications',
             recipient: payload.notifyUser.displayName,
             type: Notification[type],
@@ -243,7 +243,7 @@ class TelegramAgent
           .filter(
             (user) =>
               user.settings?.hasNotificationType(
-                NotificationAgentKey.TELEGRAM,
+                NotificationAgentKey.TELEGRAM_2,
                 type
               ) && shouldSendAdminNotification(type, user, payload)
           )
@@ -252,7 +252,7 @@ class TelegramAgent
               user.settings?.telegramChatId &&
               user.settings.telegramChatId !== settings.options.chatId
             ) {
-              logger.debug('Sending Telegram notification', {
+              logger.debug('Sending Telegram_2 notification', {
                 label: 'Notifications',
                 recipient: user.displayName,
                 type: Notification[type],
@@ -264,9 +264,9 @@ class TelegramAgent
                   ...notificationPayload,
                   chat_id: user.settings.telegramChatId,
                   disable_notification: !!user.settings?.telegramSendSilently,
-                } as TelegramMessagePayload | TelegramPhotoPayload);
+                } as Telegram_2MessagePayload | Telegram_2PhotoPayload);
               } catch (e) {
-                logger.error('Error sending Telegram notification', {
+                logger.error('Error sending Telegram_2 notification', {
                   label: 'Notifications',
                   recipient: user.displayName,
                   type: Notification[type],
@@ -286,4 +286,4 @@ class TelegramAgent
   }
 }
 
-export default TelegramAgent;
+export default Telegram_2Agent;

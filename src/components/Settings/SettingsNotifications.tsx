@@ -127,7 +127,18 @@ const SettingsNotifications = ({ children }: SettingsNotificationsProps) => {
         </span>
       ),
       route: '/settings/notifications/telegram',
-      regex: /^\/settings\/notifications\/telegram/,
+      regex: /^\/settings\/notifications\/telegram$/,
+    },
+    {
+      text: 'Telegram_2',
+      content: (
+        <span className="flex items-center">
+          <TelegramLogo className="mr-2 h-4" />
+          Telegram_2
+        </span>
+      ),
+      route: '/settings/notifications/telegram_2',
+      regex: /^\/settings\/notifications\/telegram_2/,
     },
     {
       text: intl.formatMessage(messages.webhook),

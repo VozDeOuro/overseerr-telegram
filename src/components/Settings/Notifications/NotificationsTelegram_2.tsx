@@ -37,7 +37,7 @@ const messages = defineMessages({
   sendSilentlyTip: 'Send notifications with no sound',
 });
 
-const NotificationsTelegram = () => {
+const NotificationsTelegram_2 = () => {
   const intl = useIntl();
   const { addToast, removeToast } = useToasts();
   const [isTesting, setIsTesting] = useState(false);
@@ -45,9 +45,9 @@ const NotificationsTelegram = () => {
     data,
     error,
     mutate: revalidate,
-  } = useSWR('/api/v1/settings/notifications/telegram');
+  } = useSWR('/api/v1/settings/notifications/telegram_2');
 
-  const NotificationsTelegramSchema = Yup.object().shape({
+  const NotificationsTelegram_2Schema = Yup.object().shape({
     botAPI: Yup.string().when('enabled', {
       is: true,
       then: Yup.string()
@@ -85,10 +85,10 @@ const NotificationsTelegram = () => {
         messageThreadId: data?.options.messageThreadId,
         sendSilently: data?.options.sendSilently,
       }}
-      validationSchema={NotificationsTelegramSchema}
+      validationSchema={NotificationsTelegram_2Schema}
       onSubmit={async (values) => {
         try {
-          await axios.post('/api/v1/settings/notifications/telegram', {
+          await axios.post('/api/v1/settings/notifications/telegram_2', {
             enabled: values.enabled,
             types: values.types,
             options: {
@@ -137,7 +137,7 @@ const NotificationsTelegram = () => {
                 toastId = id;
               }
             );
-            await axios.post('/api/v1/settings/notifications/telegram/test', {
+            await axios.post('/api/v1/settings/notifications/telegram_2/test', {
               enabled: true,
               types: values.types,
               options: {
@@ -367,4 +367,4 @@ const NotificationsTelegram = () => {
   );
 };
 
-export default NotificationsTelegram;
+export default NotificationsTelegram_2;

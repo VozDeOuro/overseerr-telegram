@@ -9,6 +9,7 @@ import PushbulletAgent from '@server/lib/notifications/agents/pushbullet';
 import PushoverAgent from '@server/lib/notifications/agents/pushover';
 import SlackAgent from '@server/lib/notifications/agents/slack';
 import TelegramAgent from '@server/lib/notifications/agents/telegram';
+import Telegram_2Agent from '@server/lib/notifications/agents/telegram_2';
 import WebhookAgent from '@server/lib/notifications/agents/webhook';
 import WebPushAgent from '@server/lib/notifications/agents/webpush';
 import { getSettings } from '@server/lib/settings';
@@ -123,6 +124,40 @@ notificationRoutes.post('/telegram/test', async (req, res, next) => {
     return next({
       status: 500,
       message: 'Failed to send Telegram notification.',
+    });
+  }
+});
+
+notificationRoutes.get('/telegram_2', (_req, res) => {
+  const settings = getSettings();
+
+  res.status(200).json(settings.notifications.agents.telegram_2);
+});
+
+notificationRoutes.post('/telegram_2', (req, res) => {
+  const settings = getSettings();
+
+  settings.notifications.agents.telegram_2 = req.body;
+  settings.save();
+
+  res.status(200).json(settings.notifications.agents.telegram_2);
+});
+
+notificationRoutes.post('/telegram_2/test', async (req, res, next) => {
+  if (!req.user) {
+    return next({
+      status: 500,
+      message: 'User information is missing from the request.',
+    });
+  }
+
+  const telegram_2Agent = new Telegram_2Agent(req.body);
+  if (await sendTestNotification(telegram_2Agent, req.user)) {
+    return res.status(204).send();
+  } else {
+    return next({
+      status: 500,
+      message: 'Failed to send Telegram_2 notification.',
     });
   }
 });

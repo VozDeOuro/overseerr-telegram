@@ -1238,6 +1238,30 @@ components:
               type: string
             chatId:
               type: string
+            messageThreadId:
+              type: string
+            sendSilently:
+              type: boolean
+    Telegram_2Settings:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          example: false
+        types:
+          type: number
+          example: 2
+        options:
+          type: object
+          properties:
+            botUsername:
+              type: string
+            botAPI:
+              type: string
+            chatId:
+              type: string
+            messageThreadId:
+              type: string
             sendSilently:
               type: boolean
     PushbulletSettings:
@@ -1721,6 +1745,9 @@ components:
         telegramChatId:
           type: string
           nullable: true
+        telegramMessageThreadId:
+          type: string
+          nullable: true
         telegramSendSilently:
           type: boolean
           nullable: true
@@ -1738,6 +1765,8 @@ components:
         slack:
           type: number
         telegram:
+          type: number
+        telegram_2:
           type: number
         webhook:
           type: number
@@ -3028,6 +3057,52 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TelegramSettings'
+      responses:
+        '204':
+          description: Test notification attempted
+  /settings/notifications/telegram_2:
+    get:
+      summary: Get Telegram_2 notification settings
+      description: Returns current Telegram_2 notification settings in a JSON object.
+      tags:
+        - settings
+      responses:
+        '200':
+          description: Returned Telegram_2 settings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Telegram_2Settings'
+    post:
+      summary: Update Telegram_2 notification settings
+      description: Update Telegram_2 notification settings with the provided values.
+      tags:
+        - settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Telegram_2Settings'
+      responses:
+        '200':
+          description: 'Values were sucessfully updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Telegram_2Settings'
+  /settings/notifications/telegram_2/test:
+    post:
+      summary: Test Telegram_2 settings
+      description: Sends a test notification to the Telegram_2 agent.
+      tags:
+        - settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Telegram_2Settings'
       responses:
         '204':
           description: Test notification attempted

@@ -107,6 +107,18 @@ const UserNotificationSettings = ({
       regex: /\/settings\/notifications\/telegram/,
       hidden: !data?.telegramEnabled || !data?.telegramBotUsername,
     },
+    {
+      text: 'Telegram_2',
+      content: (
+        <span className="flex items-center">
+          <TelegramLogo className="mr-2 h-4" />
+          Telegram_2
+        </span>
+      ),
+      route: '/settings/notifications/telegram_2',
+      regex: /\/settings\/notifications\/telegram_2/,
+      hidden: !data?.telegramEnabled || !data?.telegramBotUsername,
+    },
   ];
 
   settingsRoutes.forEach((settingsRoute) => {

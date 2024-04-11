@@ -177,6 +177,18 @@ export interface NotificationAgentTelegram extends NotificationAgentConfig {
     botUsername?: string;
     botAPI: string;
     chatId: string;
+    messageThreadId: string;
+    sendSilently: boolean;
+  };
+}
+
+
+export interface NotificationAgentTelegram_2 extends NotificationAgentConfig {
+  options: {
+    botUsername?: string;
+    botAPI: string;
+    chatId: string;
+    messageThreadId: string;
     sendSilently: boolean;
   };
 }
@@ -219,6 +231,7 @@ export enum NotificationAgentKey {
   PUSHOVER = 'pushover',
   SLACK = 'slack',
   TELEGRAM = 'telegram',
+  TELEGRAM_2 = 'telegram_2',
   WEBHOOK = 'webhook',
   WEBPUSH = 'webpush',
 }
@@ -232,6 +245,7 @@ interface NotificationAgents {
   pushover: NotificationAgentPushover;
   slack: NotificationAgentSlack;
   telegram: NotificationAgentTelegram;
+  telegram_2: NotificationAgentTelegram_2;
   webhook: NotificationAgentWebhook;
   webpush: NotificationAgentConfig;
 }
@@ -357,8 +371,21 @@ class Settings {
             options: {
               botAPI: '',
               chatId: '',
+              messageThreadId: '',
               sendSilently: false,
             },
+
+          },
+          telegram_2: {
+            enabled: false,
+            types: 0,
+            options: {
+              botAPI: '',
+              chatId: '',
+              messageThreadId: '',
+              sendSilently: false,
+            },
+
           },
           pushbullet: {
             enabled: false,

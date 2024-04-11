@@ -44,7 +44,7 @@ class Telegram_2Agent
 
     const settings = getSettings();
 
-    return settings.notifications.agents.telegram;
+    return settings.notifications.agents.telegram_2;
   }
 
   public shouldSend(): boolean {

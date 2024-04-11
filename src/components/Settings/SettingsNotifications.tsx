@@ -138,7 +138,7 @@ const SettingsNotifications = ({ children }: SettingsNotificationsProps) => {
         </span>
       ),
       route: '/settings/notifications/telegram_2',
-      regex: /^\/settings\/notifications\/telegram_2/,
+      regex: /^\/settings\/notifications\/telegram_2$/,
     },
     {
       text: intl.formatMessage(messages.webhook),

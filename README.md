@@ -37,8 +37,9 @@ Check out our documentation for instructions on how to install and run Overseerr
 https://docs.overseerr.dev/getting-started/installation
 
 ## Preview
-
+<img src="./public/preview2.jpg">
 <img src="./public/preview.jpg">
+
 
 ## Support
 
